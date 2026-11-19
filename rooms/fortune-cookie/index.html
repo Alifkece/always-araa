@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fortune Cookie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Caveat:wght@400;700&family=Press+Start+2P&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../_shared/room.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="fortune" data-fallback="../../assets/bg_ghibli.webp">
+  <main class="stage">
+    <h1 class="jp" data-t="fortune.title_jp">&#36939;&#21629;&#12398;&#12463;&#12483;&#12461;&#12540;</h1>
+    <p class="en" data-t="fortune.title">FORTUNE COOKIE</p>
+
+    <div class="frame">
+      <div class="frame-in">
+        <div class="idle" id="idle">
+          <svg class="cookie" id="cookie" viewBox="0 0 40 40" width="48" height="48">
+            <circle cx="20" cy="20" r="17" fill="#f4a91c" stroke="#1b0f0a" stroke-width="3"/>
+            <g fill="#5a3410"><rect x="12" y="11" width="4" height="4"/><rect x="23" y="14" width="4" height="4"/><rect x="15" y="22" width="4" height="4"/><rect x="25" y="25" width="3" height="3"/><rect x="10" y="24" width="3" height="3"/></g>
+          </svg>
+          <p data-t="fortune.press">PRESS THE BUTTON</p>
+        </div>
+        <div class="paper" id="paper" style="display:none"><p id="text"></p></div>
+      </div>
+      <div class="slot"></div>
+    </div>
+
+    <button class="open" id="open" data-t="fortune.open">OPEN COOKIE</button>
+    <p class="count" id="count"></p>
+  </main>
+  <div id="confetti"></div>
+
+  <script src="../../config.js"></script>
+  <script src="../_shared/room.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

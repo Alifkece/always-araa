@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas of Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Caveat:wght@400;700&family=Press+Start+2P&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../_shared/room.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="atlas" data-fallback="../../assets/bg_ghibli.webp">
+  <main class="win">
+    <div class="titlebar"><span>&#9992; <span data-t="atlas.window_title">ATLAS OF US</span></span></div>
+    <div class="stats">
+      <span><i class="pin"></i><b id="places">0</b><small data-t="atlas.places">PLACES</small></span>
+      <span><i class="ruler"></i><b id="km">0</b><small data-t="atlas.km">KM</small></span>
+    </div>
+    <div class="mapbox">
+      <div id="map"></div>
+
+      <div class="dialog hide" id="dialog">
+        <div class="titlebar small"><span id="dlg-title"></span><button id="dlg-close" aria-label="Tutup">&times;</button></div>
+        <img id="dlg-photo" alt="">
+        <div class="dlg-body"><h3 id="dlg-label"></h3><p id="dlg-note"></p></div>
+      </div>
+
+      <!-- Layar loading: kompas + progress -->
+      <div class="loading" id="loading">
+        <svg class="compass" viewBox="0 0 60 60" width="64" height="64">
+          <circle cx="30" cy="30" r="26" fill="none" stroke="#777" stroke-width="3"/>
+          <circle cx="30" cy="30" r="21" fill="none" stroke="#aaa" stroke-width="1"/>
+          <text x="30" y="14" text-anchor="middle" font-size="7" fill="#555" font-family="monospace">N</text>
+          <g class="needle"><path d="M30 12 L35 30 L30 48 L25 30 Z" fill="#1a1a8a"/></g>
+        </svg>
+        <p id="load-text" data-t="atlas.loading">Preparing your journey...</p>
+        <div class="lbar"><i id="lfill"></i><span id="lpct">0%</span></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn98" id="prev">&#9666; <span data-t="atlas.prev">PREV</span></button>
+      <span class="page" id="page">0 / 0</span>
+      <button class="btn98" id="next"><span data-t="atlas.next">NEXT</span> &#9656;</button>
+    </div>
+  </main>
+
+  <script src="../../config.js"></script>
+  <script src="../_shared/room.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

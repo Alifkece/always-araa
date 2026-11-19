@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moments</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Caveat:wght@400;700&family=Press+Start+2P&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../_shared/room.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="moments" data-fallback="../../assets/bg_ghibli.webp">
+  <main class="stage">
+    <!-- Foto dalam bingkai kayu -->
+    <div class="frame"><div class="mat"><div id="media" class="media"></div></div></div>
+
+    <!-- Papan caption -->
+    <div class="plate">
+      <span class="q q-open">&ldquo;</span>
+      <p id="caption"></p>
+      <span class="q q-close">&rdquo;</span>
+    </div>
+
+    <!-- Navigasi -->
+    <div class="pager">
+      <button class="nav" id="prev" aria-label="Sebelumnya">&#8249;</button>
+      <span class="count" id="count">1 / 1</span>
+      <button class="nav" id="next" aria-label="Berikutnya">&#8250;</button>
+    </div>
+
+    <p class="empty-note" id="empty" style="display:none" data-t="moments.empty"></p>
+  </main>
+
+  <script src="../../config.js"></script>
+  <script src="../_shared/room.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

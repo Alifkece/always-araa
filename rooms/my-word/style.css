@@ -1,0 +1,1830 @@
+/* ═══════════════════════════════════════════════════════════
+   MY WORD — Phase 1: Cinematic Film (50 Photos)
+   Prefixed with .myword- to prevent any CSS collision
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --mw-bg-deep: #140d09;
+  --mw-bg-warm: #23160f;
+  --mw-amber: #f5c76b;
+  --mw-amber-soft: rgba(245, 199, 107, 0.35);
+  --mw-gold-edge: rgba(255, 224, 155, 0.55);
+  --mw-cream: #fbf3e4;
+  --mw-cream-muted: rgba(251, 243, 228, 0.78);
+  --mw-glass: rgba(34, 21, 14, 0.58);
+  --mw-ease-cinema: cubic-bezier(0.22, 1, 0.36, 1);
+  --mw-transition-ms: 1450ms;
+}
+
+.myword-hidden {
+  display: none !important;
+}
+
+html,
+body.myword-body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--mw-bg-deep);
+  color: var(--mw-cream);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Atmospheric Cinema Layers ─────────────────────────── */
+.myword-backdrop {
+  position: fixed;
+  inset: -24px;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(120, 72, 34, 0.42) 0%, rgba(28, 17, 11, 0.88) 65%, rgba(14, 9, 6, 0.98) 100%),
+    url('../../assets/bg_ghibli.webp') center / cover no-repeat;
+  filter: blur(14px) saturate(1.15) brightness(0.62);
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+.myword-warm-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 68% 55% at 50% 42%, rgba(255, 196, 110, 0.22) 0%, rgba(214, 132, 56, 0.08) 45%, transparent 78%),
+    linear-gradient(180deg, rgba(16, 10, 7, 0.52) 0%, rgba(16, 10, 7, 0.15) 45%, rgba(12, 7, 5, 0.72) 100%);
+  pointer-events: none;
+  animation: mywordGlowPulse 9s ease-in-out infinite;
+}
+
+@keyframes mywordGlowPulse {
+  0%, 100% {
+    opacity: 0.88;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.myword-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(circle at 50% 46%, transparent 46%, rgba(8, 4, 3, 0.72) 100%);
+  pointer-events: none;
+}
+
+/* Subtle SVG/CSS Film Grain */
+.myword-film-grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 3;
+  opacity: 0.055;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  animation: mywordGrainShift 1.4s steps(4) infinite;
+}
+
+@keyframes mywordGrainShift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1.5%); }
+  50% { transform: translate(1.5%, -2%); }
+  75% { transform: translate(-1%, -1.5%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Floating warm dust motes */
+.myword-dust-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.myword-mote {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 232, 175, 0.9) 0%, rgba(245, 199, 107, 0) 70%);
+  opacity: 0;
+  animation: mywordMoteFloat var(--dur, 12s) ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes mywordMoteFloat {
+  0%, 100% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.8);
+  }
+  30%, 70% {
+    opacity: var(--max-op, 0.55);
+  }
+  50% {
+    transform: translate3d(var(--dx, 18px), var(--dy, -36px), 0) scale(1.15);
+  }
+}
+
+/* ── Opening Screen ────────────────────────────────────── */
+.myword-opening {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 45%, rgba(36, 22, 14, 0.92) 0%, rgba(13, 8, 5, 0.98) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: opacity 1.1s var(--mw-ease-cinema), visibility 1.1s ease;
+}
+
+.myword-opening.myword-opening-exit {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.myword-opening-inner {
+  max-width: 560px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: mywordOpeningRise 1.1s var(--mw-ease-cinema) forwards;
+}
+
+@keyframes mywordOpeningRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.myword-opening-ornament,
+.myword-closing-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 180px;
+  color: var(--mw-amber);
+}
+
+.myword-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 199, 107, 0.65), transparent);
+}
+
+.myword-diamond {
+  font-size: 0.85rem;
+  color: var(--mw-amber);
+  text-shadow: 0 0 12px rgba(245, 199, 107, 0.75);
+}
+
+.myword-opening-kicker {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 2.2px;
+  color: rgba(245, 199, 107, 0.82);
+}
+
+.myword-opening-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.1rem, 6vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  color: var(--mw-cream);
+  text-shadow:
+    0 2px 18px rgba(245, 199, 107, 0.35),
+    0 4px 30px rgba(0, 0, 0, 0.7);
+}
+
+.myword-opening-subtitle {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.18rem, 3.4vw, 1.52rem);
+  line-height: 1.55;
+  color: var(--mw-cream-muted);
+  max-width: 460px;
+}
+
+.myword-opening-loader {
+  margin-top: 8px;
+  width: 160px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(255, 240, 210, 0.14);
+  overflow: hidden;
+}
+
+.myword-opening-bar {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(245, 199, 107, 0.4), var(--mw-amber));
+  box-shadow: 0 0 10px rgba(245, 199, 107, 0.7);
+  transition: width 2.3s linear;
+}
+
+/* ── Main Cinema Stage ─────────────────────────────────── */
+.myword-stage {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px 16px;
+  gap: 8px;
+}
+
+/* ── Header ────────────────────────────────────────────── */
+.myword-header {
+  width: 100%;
+  max-width: 820px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 42px; /* clear modal close button in top-right */
+  flex-shrink: 0;
+}
+
+.myword-reel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(28, 17, 11, 0.62);
+  border: 1px solid rgba(245, 199, 107, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.myword-rec-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--mw-amber);
+  box-shadow: 0 0 8px var(--mw-amber);
+  animation: mywordRecBlink 2.2s ease-in-out infinite;
+}
+
+.myword-rec-dot.myword-paused {
+  animation: none;
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+@keyframes mywordRecBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.myword-reel-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 1.8px;
+  color: var(--mw-cream);
+}
+
+.myword-counter-pill {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 1px;
+  color: var(--mw-amber);
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(28, 17, 11, 0.68);
+  border: 1px solid rgba(245, 199, 107, 0.32);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Horizontal Cinema Viewport & Track ────────────────── */
+.myword-cinema-viewport {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.myword-sprocket-rail {
+  width: min(760px, 92vw);
+  height: 10px;
+  flex-shrink: 0;
+  opacity: 0.24;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 12px,
+    rgba(245, 199, 107, 0.85) 12px,
+    rgba(245, 199, 107, 0.85) 22px,
+    transparent 22px,
+    transparent 36px
+  );
+  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+.myword-track-stage {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+/* ── Multi-Layered 1:1 Cinema Frame ────────────────────── */
+.myword-slide {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity, filter;
+  transition:
+    transform var(--mw-transition-ms) var(--mw-ease-cinema),
+    opacity var(--mw-transition-ms) var(--mw-ease-cinema),
+    filter var(--mw-transition-ms) var(--mw-ease-cinema);
+}
+
+/* Slide positions along horizontal filmstrip with parallax depth */
+.myword-slide.is-center {
+  z-index: 5;
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: brightness(1) blur(0px);
+}
+
+.myword-slide.is-enter-right {
+  z-index: 4;
+  opacity: 0;
+  transform: translate3d(58%, 0, -90px) scale(0.86);
+  filter: brightness(0.65) blur(2px);
+  pointer-events: none;
+}
+
+.myword-slide.is-enter-left {
+  z-index: 4;
+  opacity: 0;
+  transform: translate3d(-58%, 0, -90px) scale(0.86);
+  filter: brightness(0.65) blur(2px);
+  pointer-events: none;
+}
+
+.myword-slide.is-exit-left {
+  z-index: 3;
+  opacity: 0;
+  transform: translate3d(-58%, 0, -90px) scale(0.86);
+  filter: brightness(0.6) blur(2px);
+  pointer-events: none;
+}
+
+.myword-slide.is-exit-right {
+  z-index: 3;
+  opacity: 0;
+  transform: translate3d(58%, 0, -90px) scale(0.86);
+  filter: brightness(0.6) blur(2px);
+  pointer-events: none;
+}
+
+/* Ghost side depth frames (subtle adjacent film frames for cinema depth) */
+.myword-ghost-frame {
+  position: absolute;
+  width: clamp(190px, min(42vw, 36vh), 320px);
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  border: 1px solid rgba(245, 199, 107, 0.14);
+  background: rgba(28, 17, 11, 0.35);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.42;
+  filter: blur(1.5px);
+}
+
+.myword-ghost-left {
+  transform: translateX(calc(-50% - clamp(155px, 28vw, 260px))) scale(0.82);
+}
+
+.myword-ghost-right {
+  transform: translateX(calc(50% + clamp(155px, 28vw, 260px))) scale(0.82);
+}
+
+/* Outer layered border + glass + edge highlight + natural shadow */
+.myword-frame-outer {
+  position: relative;
+  width: clamp(220px, min(68vw, 44vh), 370px);
+  aspect-ratio: 1 / 1;
+  padding: 10px;
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(255, 232, 185, 0.24) 0%, rgba(56, 35, 22, 0.72) 42%, rgba(24, 14, 9, 0.88) 100%);
+  border: 1px solid rgba(255, 226, 165, 0.38);
+  box-shadow:
+    0 24px 54px rgba(0, 0, 0, 0.68),
+    0 8px 22px rgba(0, 0, 0, 0.45),
+    0 0 42px rgba(245, 185, 90, 0.18),
+    inset 0 1px 1px rgba(255, 245, 220, 0.45),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Subtle reflection beneath the frame */
+.myword-frame-outer::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -16px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(245, 199, 107, 0.22) 0%, rgba(0, 0, 0, 0.45) 55%, transparent 80%);
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+/* Inner mat / double border */
+.myword-frame-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 5px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(250, 240, 222, 0.14), rgba(20, 12, 8, 0.85));
+  border: 1px solid rgba(245, 199, 107, 0.28);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+.myword-photo-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1a100a;
+}
+
+.myword-photo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.01);
+  transition: transform 6.8s ease-out;
+}
+
+/* Gentle cinematic slow drift while active */
+.myword-slide.is-center .myword-photo.is-kenburns {
+  transform: scale(1.075);
+}
+
+/* Soft glass sheen & warm lens highlight across photo */
+.myword-glass-sheen {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(128deg, rgba(255, 248, 232, 0.16) 0%, rgba(255, 248, 232, 0.03) 34%, transparent 55%),
+    radial-gradient(circle at 80% 85%, rgba(245, 185, 95, 0.12), transparent 55%);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+}
+
+/* ── Caption & Footer Controls ─────────────────────────── */
+.myword-footer {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.myword-caption-box {
+  width: 100%;
+  min-height: 58px;
+  padding: 10px 20px;
+  border-radius: 14px;
+  background: var(--mw-glass);
+  border: 1px solid rgba(245, 199, 107, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.myword-caption-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.06rem, 2.7vw, 1.32rem);
+  line-height: 1.42;
+  color: var(--mw-cream);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.9s var(--mw-ease-cinema),
+    transform 0.9s var(--mw-ease-cinema);
+}
+
+.myword-caption-text.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Progress Indicator */
+.myword-progress-wrap {
+  width: min(440px, 88vw);
+  padding: 2px 0;
+}
+
+.myword-progress-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 240, 210, 0.14);
+  overflow: hidden;
+}
+
+.myword-progress-fill {
+  height: 100%;
+  width: 2%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(245, 199, 107, 0.65), var(--mw-amber));
+  box-shadow: 0 0 10px rgba(245, 199, 107, 0.6);
+  transition: width 0.6s var(--mw-ease-cinema);
+}
+
+/* Navigation Buttons */
+.myword-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.myword-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 199, 107, 0.3);
+  background: rgba(34, 21, 14, 0.72);
+  color: var(--mw-cream);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.32);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.myword-btn:hover:not(:disabled) {
+  background: rgba(245, 199, 107, 0.22);
+  border-color: var(--mw-amber);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.myword-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.myword-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.myword-btn-play {
+  background: rgba(245, 199, 107, 0.18);
+  border-color: rgba(245, 199, 107, 0.55);
+  color: var(--mw-amber);
+  min-width: 112px;
+}
+
+/* ── Closing Scene ─────────────────────────────────────── */
+.myword-closing {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 45%, rgba(34, 20, 12, 0.9) 0%, rgba(12, 7, 5, 0.97) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: mywordClosingFade 1.1s var(--mw-ease-cinema) forwards;
+}
+
+@keyframes mywordClosingFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.myword-closing-card {
+  max-width: 560px;
+  padding: 34px 28px;
+  border-radius: 22px;
+  background: rgba(34, 21, 14, 0.68);
+  border: 1px solid rgba(245, 199, 107, 0.34);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.65),
+    0 0 45px rgba(245, 199, 107, 0.14),
+    inset 0 1px 1px rgba(255, 245, 220, 0.3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  animation: mywordOpeningRise 1s var(--mw-ease-cinema) forwards;
+}
+
+.myword-closing-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 2px;
+  color: rgba(245, 199, 107, 0.85);
+}
+
+.myword-closing-quote {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 3.6vw, 1.65rem);
+  line-height: 1.55;
+  color: var(--mw-cream);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+}
+
+.myword-watch-again-btn {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  border: 1px solid var(--mw-amber);
+  background: linear-gradient(135deg, rgba(245, 199, 107, 0.28), rgba(196, 138, 44, 0.34));
+  color: var(--mw-cream);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.54rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 199, 107, 0.22);
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.myword-watch-again-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(245, 199, 107, 0.42), rgba(196, 138, 44, 0.48));
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 28px rgba(245, 199, 107, 0.38);
+}
+
+/* ── Mobile Responsive Adjustments ─────────────────────── */
+@media (max-width: 600px) {
+  .myword-stage {
+    padding: 12px 12px 14px;
+    gap: 6px;
+  }
+
+  .myword-header {
+    padding-right: 44px;
+  }
+
+  .myword-reel-title {
+    font-size: 0.46rem;
+  }
+
+  .myword-counter-pill {
+    font-size: 0.48rem;
+    padding: 6px 11px;
+  }
+
+  .myword-frame-outer {
+    width: min(74vw, 39vh, 300px);
+    padding: 8px;
+    border-radius: 15px;
+  }
+
+  .myword-frame-inner {
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .myword-ghost-frame {
+    display: none;
+  }
+
+  .myword-caption-box {
+    min-height: 62px;
+    padding: 9px 14px;
+  }
+
+  .myword-caption-text {
+    font-size: 1.04rem;
+    line-height: 1.38;
+  }
+
+  .myword-btn {
+    height: 36px;
+    padding: 0 12px;
+    font-size: 0.44rem;
+  }
+
+  .myword-btn-play {
+    min-width: 98px;
+  }
+}
+
+/* ── Reduced Motion Support ────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .myword-warm-glow,
+  .myword-film-grain,
+  .myword-mote,
+  .myword-rec-dot {
+    animation: none !important;
+  }
+
+  .myword-slide,
+  .myword-photo,
+  .myword-caption-text,
+  .myword-opening,
+  .myword-progress-fill {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   MY WORD — Phase 2: Horizontal Floating Cinematic Cards (araa51..araa100)
+   & Phase 3: Cinematic Slideshow (araa101..araa108) & Final Love Letter
+   ═══════════════════════════════════════════════════════════ */
+
+/* Smooth atmosphere adaptation across Phase 2 & Phase 3 */
+body.myword-body.myword-phase-2 .myword-backdrop {
+  background:
+    radial-gradient(circle at 50% 36%, rgba(145, 92, 54, 0.46) 0%, rgba(30, 18, 22, 0.88) 64%, rgba(13, 8, 11, 0.98) 100%),
+    url('../../assets/bg_ghibli.webp') center / cover no-repeat;
+  transition: background 1.4s ease;
+}
+
+body.myword-body.myword-phase-2 .myword-warm-glow {
+  background:
+    radial-gradient(ellipse 72% 58% at 50% 42%, rgba(255, 208, 138, 0.26) 0%, rgba(226, 148, 92, 0.11) 46%, transparent 78%),
+    radial-gradient(circle at 22% 28%, rgba(255, 224, 170, 0.08), transparent 45%),
+    radial-gradient(circle at 78% 70%, rgba(245, 175, 120, 0.08), transparent 48%),
+    linear-gradient(180deg, rgba(16, 10, 12, 0.48) 0%, rgba(16, 10, 12, 0.12) 45%, rgba(12, 7, 9, 0.72) 100%);
+}
+
+body.myword-body.myword-phase-3 .myword-backdrop {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(156, 102, 52, 0.5) 0%, rgba(28, 16, 13, 0.9) 65%, rgba(11, 6, 5, 0.99) 100%),
+    url('../../assets/bg_ghibli.webp') center / cover no-repeat;
+  transition: background 1.6s ease;
+}
+
+body.myword-body.myword-phase-3 .myword-warm-glow {
+  background:
+    radial-gradient(ellipse 74% 60% at 50% 42%, rgba(255, 214, 142, 0.3) 0%, rgba(224, 146, 72, 0.13) 48%, transparent 80%),
+    linear-gradient(180deg, rgba(14, 8, 6, 0.45) 0%, rgba(14, 8, 6, 0.1) 45%, rgba(10, 5, 4, 0.74) 100%);
+}
+
+/* Softly fade out filmstrip sprocket rails in Phase 2 & Phase 3 */
+.myword-sprocket-rail {
+  transition: opacity 0.9s var(--mw-ease-cinema), transform 0.9s var(--mw-ease-cinema);
+}
+
+body.myword-body.myword-phase-2 .myword-sprocket-rail,
+body.myword-body.myword-phase-3 .myword-sprocket-rail {
+  opacity: 0;
+  transform: scaleX(0.85);
+}
+
+/* Hide Phase 1 ghost film frames during Phase 2 & Phase 3 */
+body.myword-body.myword-phase-2 .myword-ghost-frame,
+body.myword-body.myword-phase-3 .myword-ghost-frame {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+/* ── Chapter Interlude Transition Overlay ──────────────── */
+.myword-interlude {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(44, 26, 18, 0.92) 0%, rgba(12, 7, 6, 0.97) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.85s var(--mw-ease-cinema), visibility 0.85s ease;
+}
+
+.myword-interlude.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.myword-interlude-card {
+  max-width: 590px;
+  padding: 32px 26px;
+  border-radius: 22px;
+  background: rgba(34, 21, 15, 0.66);
+  border: 1px solid rgba(245, 199, 107, 0.34);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.65),
+    0 0 48px rgba(245, 199, 107, 0.16),
+    inset 0 1px 1px rgba(255, 245, 220, 0.34);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+  transform: scale(0.97);
+  transition: transform 0.9s var(--mw-ease-cinema);
+}
+
+.myword-interlude.is-active .myword-interlude-card {
+  transform: scale(1);
+}
+
+.myword-interlude-kicker {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.46rem;
+  letter-spacing: 2px;
+  color: rgba(245, 199, 107, 0.82);
+}
+
+.myword-interlude-closing {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.9vw, 1.34rem);
+  line-height: 1.5;
+  color: var(--mw-cream-muted);
+  max-width: 470px;
+}
+
+.myword-interlude-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.32rem, 3.8vw, 1.95rem);
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  line-height: 1.35;
+  color: var(--mw-cream);
+  text-shadow:
+    0 2px 18px rgba(245, 199, 107, 0.38),
+    0 4px 26px rgba(0, 0, 0, 0.7);
+}
+
+.myword-interlude-sub {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.44rem;
+  letter-spacing: 1.6px;
+  color: var(--mw-amber);
+  opacity: 0.9;
+}
+
+.myword-interlude-progress {
+  margin-top: 6px;
+  width: 170px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(255, 240, 210, 0.15);
+  overflow: hidden;
+}
+
+.myword-interlude-bar {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(245, 199, 107, 0.45), var(--mw-amber));
+  box-shadow: 0 0 10px rgba(245, 199, 107, 0.75);
+}
+
+/* ── PHASE 2: Horizontal Floating Cinematic Cards ───────── */
+.myword-float-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+/* Ambient background floating companion cards for horizontal depth */
+.myword-float-companion {
+  position: absolute;
+  width: clamp(160px, min(36vw, 29vh), 260px);
+  aspect-ratio: 1 / 1;
+  padding: 7px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255, 232, 185, 0.16), rgba(38, 23, 16, 0.55));
+  border: 1px solid rgba(255, 226, 165, 0.2);
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, 0.52),
+    inset 0 1px 1px rgba(255, 245, 220, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.34;
+  filter: blur(2.2px) brightness(0.75);
+  transition:
+    transform 1.4s var(--mw-ease-cinema),
+    opacity 1.2s ease;
+}
+
+.myword-float-companion-inner {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1a100c;
+}
+
+.myword-float-companion img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+/* Horizontal-only gentle sway on companion cards */
+.myword-float-companion.is-left {
+  transform: translate3d(calc(-50% - clamp(135px, 24vw, 235px)), 0px, -140px) rotateY(14deg) rotateZ(-2.5deg) scale(0.84);
+  animation: mywordCompanionLeftSway 8.5s ease-in-out infinite;
+}
+
+.myword-float-companion.is-right {
+  transform: translate3d(calc(50% + clamp(135px, 24vw, 235px)), 0px, -140px) rotateY(-14deg) rotateZ(2.5deg) scale(0.84);
+  animation: mywordCompanionRightSway 9.2s ease-in-out infinite;
+}
+
+@keyframes mywordCompanionLeftSway {
+  0%, 100% {
+    transform: translate3d(calc(-50% - clamp(135px, 24vw, 235px)), 0px, -140px) rotateY(14deg) rotateZ(-2.5deg) scale(0.84);
+  }
+  50% {
+    transform: translate3d(calc(-50% - clamp(128px, 23vw, 226px)), 0px, -130px) rotateY(11deg) rotateZ(-1.6deg) scale(0.85);
+  }
+}
+
+@keyframes mywordCompanionRightSway {
+  0%, 100% {
+    transform: translate3d(calc(50% + clamp(135px, 24vw, 235px)), 0px, -140px) rotateY(-14deg) rotateZ(2.5deg) scale(0.84);
+  }
+  50% {
+    transform: translate3d(calc(50% + clamp(128px, 23vw, 226px)), 0px, -130px) rotateY(-11deg) rotateZ(1.6deg) scale(0.85);
+  }
+}
+
+/* Primary Floating Card Wrapper — Strictly Horizontal Entry (Right -> Center -> Left) */
+.myword-fcard {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+  transition:
+    transform 1.45s var(--mw-ease-cinema),
+    opacity 1.35s var(--mw-ease-cinema),
+    filter 1.35s var(--mw-ease-cinema);
+}
+
+.myword-fcard.is-center {
+  z-index: 6;
+  opacity: 1;
+  transform: translate3d(0%, 0px, 0px) rotateY(0deg) rotateZ(0deg) scale(1);
+  filter: brightness(1) blur(0px);
+}
+
+.myword-fcard.is-enter-right {
+  z-index: 5;
+  opacity: 0;
+  transform: translate3d(64%, 0px, -95px) rotateY(-14deg) rotateZ(2deg) scale(0.88);
+  filter: brightness(0.72) blur(2px);
+  pointer-events: none;
+}
+
+.myword-fcard.is-enter-left {
+  z-index: 5;
+  opacity: 0;
+  transform: translate3d(-64%, 0px, -95px) rotateY(14deg) rotateZ(-2deg) scale(0.88);
+  filter: brightness(0.72) blur(2px);
+  pointer-events: none;
+}
+
+.myword-fcard.is-exit-left {
+  z-index: 4;
+  opacity: 0;
+  transform: translate3d(-64%, 0px, -95px) rotateY(14deg) rotateZ(-2deg) scale(0.88);
+  filter: brightness(0.68) blur(2px);
+  pointer-events: none;
+}
+
+.myword-fcard.is-exit-right {
+  z-index: 4;
+  opacity: 0;
+  transform: translate3d(64%, 0px, -95px) rotateY(-14deg) rotateZ(2deg) scale(0.88);
+  filter: brightness(0.68) blur(2px);
+  pointer-events: none;
+}
+
+/* Subtle horizontal-biased ambient float while active (zero vertical scrolling) */
+.myword-fcard-float-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+.myword-fcard.is-center .myword-fcard-float-body {
+  animation: mywordCardHorizontalFloat 7.2s ease-in-out infinite;
+}
+
+@keyframes mywordCardHorizontalFloat {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateY(-0.9deg) rotateZ(-0.35deg);
+  }
+  35% {
+    transform: translate3d(6px, 0px, 8px) rotateY(0.85deg) rotateZ(0.35deg);
+  }
+  70% {
+    transform: translate3d(-5px, 0px, 5px) rotateY(-0.55deg) rotateZ(-0.2deg);
+  }
+}
+
+/* Floating Card Frame — Consistent 1:1 size with layered shadows, ambient glow, and light reflection */
+.myword-fcard-outer {
+  position: relative;
+  width: clamp(220px, min(68vw, 44vh), 370px);
+  aspect-ratio: 1 / 1;
+  padding: 11px;
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(255, 240, 205, 0.28) 0%, rgba(68, 42, 28, 0.72) 45%, rgba(24, 14, 12, 0.9) 100%);
+  border: 1px solid rgba(255, 232, 178, 0.44);
+  box-shadow:
+    0 30px 62px rgba(0, 0, 0, 0.72),
+    0 12px 26px rgba(0, 0, 0, 0.48),
+    0 0 48px rgba(245, 195, 110, 0.24),
+    inset 0 1px 1.5px rgba(255, 250, 235, 0.55),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.myword-fcard-outer::after {
+  content: '';
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -20px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(245, 199, 107, 0.26) 0%, rgba(0, 0, 0, 0.55) 58%, transparent 82%);
+  filter: blur(6px);
+  pointer-events: none;
+  animation: mywordShadowBreath 7.2s ease-in-out infinite;
+}
+
+@keyframes mywordShadowBreath {
+  0%, 100% {
+    transform: scaleX(1) scaleY(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scaleX(0.92) scaleY(0.88);
+    opacity: 0.62;
+  }
+}
+
+.myword-fcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 5px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 245, 226, 0.18), rgba(22, 13, 10, 0.86));
+  border: 1px solid rgba(245, 199, 107, 0.32);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.62);
+}
+
+.myword-fcard-photo-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1a100c;
+}
+
+.myword-fcard-photo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.01);
+  transition: transform 6.8s ease-out;
+}
+
+.myword-fcard.is-center .myword-fcard-photo.is-kenburns {
+  transform: scale(1.065);
+}
+
+.myword-fcard-reflection {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(122deg, rgba(255, 250, 236, 0.22) 0%, rgba(255, 248, 230, 0.05) 32%, transparent 56%),
+    radial-gradient(circle at 82% 84%, rgba(245, 195, 115, 0.16), transparent 55%);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+/* ── PHASE 3: Cinematic Slideshow (araa101..araa108 — Single Main Frame) ── */
+.myword-show-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.myword-show-halo {
+  position: absolute;
+  width: clamp(260px, min(78vw, 52vh), 440px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 212, 134, 0.24) 0%, rgba(245, 178, 86, 0.08) 48%, transparent 74%);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: 1;
+  animation: mywordHaloPulse 6s ease-in-out infinite;
+}
+
+@keyframes mywordHaloPulse {
+  0%, 100% {
+    opacity: 0.78;
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.myword-show-slide {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity, filter;
+  transition:
+    transform 1.65s var(--mw-ease-cinema),
+    opacity 1.55s var(--mw-ease-cinema),
+    filter 1.55s var(--mw-ease-cinema);
+}
+
+.myword-show-slide.is-center {
+  opacity: 1;
+  transform: translate3d(0%, 0, 0) scale(1);
+  filter: brightness(1) blur(0px);
+}
+
+.myword-show-slide.is-enter-right {
+  opacity: 0;
+  transform: translate3d(28%, 0, -40px) scale(0.94);
+  filter: brightness(0.75) blur(3px);
+  pointer-events: none;
+}
+
+.myword-show-slide.is-enter-left {
+  opacity: 0;
+  transform: translate3d(-28%, 0, -40px) scale(0.94);
+  filter: brightness(0.75) blur(3px);
+  pointer-events: none;
+}
+
+.myword-show-slide.is-exit-left {
+  opacity: 0;
+  transform: translate3d(-28%, 0, -40px) scale(0.94);
+  filter: brightness(0.7) blur(3px);
+  pointer-events: none;
+}
+
+.myword-show-slide.is-exit-right {
+  opacity: 0;
+  transform: translate3d(28%, 0, -40px) scale(0.94);
+  filter: brightness(0.7) blur(3px);
+  pointer-events: none;
+}
+
+.myword-show-outer {
+  position: relative;
+  width: clamp(220px, min(68vw, 44vh), 370px);
+  aspect-ratio: 1 / 1;
+  padding: 12px;
+  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(255, 238, 198, 0.34) 0%, rgba(72, 44, 24, 0.78) 46%, rgba(22, 13, 9, 0.94) 100%);
+  border: 1px solid rgba(255, 228, 168, 0.52);
+  box-shadow:
+    0 32px 68px rgba(0, 0, 0, 0.75),
+    0 12px 28px rgba(0, 0, 0, 0.5),
+    0 0 56px rgba(245, 196, 108, 0.28),
+    inset 0 1px 1.5px rgba(255, 250, 232, 0.6),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.myword-show-outer::after {
+  content: '';
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -18px;
+  height: 15px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(245, 199, 107, 0.28) 0%, rgba(0, 0, 0, 0.52) 58%, transparent 80%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.myword-show-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 6px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 246, 224, 0.22), rgba(20, 11, 8, 0.88));
+  border: 1px solid rgba(245, 199, 107, 0.38);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.65);
+}
+
+.myword-show-photo-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1a100a;
+}
+
+.myword-show-photo {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.01) translate3d(0, 0, 0);
+  transition: transform 7.4s ease-out;
+}
+
+.myword-show-slide.is-center .myword-show-photo.is-camera-pan {
+  transform: scale(1.08) translate3d(-1.2%, -0.8%, 0);
+}
+
+.myword-show-sheen {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(130deg, rgba(255, 250, 234, 0.2) 0%, rgba(255, 248, 228, 0.04) 34%, transparent 56%),
+    radial-gradient(circle at 80% 82%, rgba(245, 192, 108, 0.16), transparent 56%);
+  box-shadow: inset 0 0 22px rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+}
+
+/* ── Phase 1: exposed film, individual gate styles, and active camera moves ── */
+body.myword-phase-1 .myword-slide {
+  transition:
+    transform 1.65s cubic-bezier(0.22, 0.78, 0.18, 1),
+    opacity 1.3s cubic-bezier(0.22, 0.78, 0.18, 1),
+    filter 1.3s ease,
+    clip-path 1.35s cubic-bezier(0.22, 0.78, 0.18, 1);
+}
+
+.myword-slide.is-enter-right[data-transition-style="track"] {
+  transform: translate3d(76%, 0, -140px) rotateY(-7deg) scale(0.82);
+  clip-path: inset(0 0 0 28% round 16px);
+}
+
+.myword-slide.is-enter-left[data-transition-style="track"] {
+  transform: translate3d(-76%, 0, -140px) rotateY(7deg) scale(0.82);
+  clip-path: inset(0 28% 0 0 round 16px);
+}
+
+.myword-slide.is-exit-left[data-transition-style="track"],
+.myword-slide.is-exit-right[data-transition-style="track"] {
+  filter: brightness(0.52) blur(1.5px);
+}
+
+.myword-slide.is-exit-left[data-transition-style="track"] { transform: translate3d(-82%, 0, -180px) rotateY(8deg) scale(0.78); clip-path: inset(0 0 0 24% round 16px); }
+.myword-slide.is-exit-right[data-transition-style="track"] { transform: translate3d(82%, 0, -180px) rotateY(-8deg) scale(0.78); clip-path: inset(0 24% 0 0 round 16px); }
+
+.myword-slide.is-enter-right[data-transition-style="light-leak"],
+.myword-slide.is-enter-left[data-transition-style="light-leak"] {
+  transform: translate3d(0, 0, -220px) scale(0.92);
+  clip-path: inset(50% 0 round 46%);
+  filter: brightness(1.28) saturate(1.12) blur(5px);
+}
+
+.myword-slide.is-center[data-transition-style="light-leak"] {
+  clip-path: inset(0 round 10px);
+}
+
+.myword-slide.is-enter-right[data-transition-style="push"],
+.myword-slide.is-enter-left[data-transition-style="push"] {
+  transform: translate3d(0, 5%, -260px) scale(1.18);
+  clip-path: inset(0 34% round 48%);
+  filter: brightness(0.58) blur(4px);
+}
+
+.myword-slide.is-center[data-transition-style="push"] {
+  clip-path: inset(0 round 12px);
+}
+
+.myword-slide.is-enter-right[data-transition-style="matte"],
+.myword-slide.is-enter-left[data-transition-style="matte"] {
+  transform: translate3d(0, 0, -150px) scale(0.88);
+  clip-path: inset(42% 0 round 18px);
+  filter: brightness(0.75) blur(2px);
+}
+
+.myword-slide.is-center[data-transition-style="matte"] {
+  clip-path: inset(0 round 10px);
+}
+
+.myword-slide.is-enter-right[data-transition-style="exposure"],
+.myword-slide.is-enter-left[data-transition-style="exposure"] {
+  transform: translate3d(0, 0, -190px) scale(0.94);
+  clip-path: inset(5% 8% round 50%);
+  filter: brightness(1.5) blur(2px);
+}
+
+.myword-slide.is-center[data-transition-style="exposure"] {
+  clip-path: inset(0 round 10px);
+}
+
+.myword-slide.is-center .myword-photo.is-kenburns[data-camera-move="drift-left"] {
+  animation: mywordFilmTrackLeft 6.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.myword-slide.is-center .myword-photo.is-kenburns[data-camera-move="drift-right"] {
+  animation: mywordFilmTrackRight 6.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.myword-slide.is-center .myword-photo.is-kenburns[data-camera-move="push"] {
+  animation: mywordFilmPush 6.8s ease-out both;
+}
+
+.myword-slide.is-center .myword-photo.is-kenburns[data-camera-move="pull"] {
+  animation: mywordFilmPull 6.8s ease-out both;
+}
+
+.myword-slide.is-center .myword-photo.is-kenburns[data-camera-move="soft-pan"] {
+  animation: mywordFilmSoftPan 6.8s ease-in-out both;
+}
+
+@keyframes mywordFilmTrackLeft {
+  from { transform: scale(1.1) translate3d(1.5%, 0, 0); }
+  to { transform: scale(1.035) translate3d(-1.5%, 0, 0); }
+}
+
+@keyframes mywordFilmTrackRight {
+  from { transform: scale(1.06) translate3d(-1.2%, 0, 0); }
+  to { transform: scale(1.035) translate3d(1.5%, 0, 0); }
+}
+
+@keyframes mywordFilmPush {
+  from { transform: scale(1.01); }
+  to { transform: scale(1.09); }
+}
+
+@keyframes mywordFilmPull {
+  from { transform: scale(1.105); }
+  to { transform: scale(1.025); }
+}
+
+@keyframes mywordFilmSoftPan {
+  0% { transform: scale(1.08) translate3d(0.7%, 0.7%, 0); }
+  100% { transform: scale(1.045) translate3d(-0.7%, -0.6%, 0); }
+}
+
+.myword-film-leak {
+  position: absolute;
+  z-index: 2;
+  inset: -35% -60%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-120%, 0, 0) rotate(14deg);
+  background: linear-gradient(100deg, transparent 36%, rgba(255, 196, 104, 0.2) 47%, rgba(255, 245, 203, 0.32) 50%, rgba(243, 138, 83, 0.15) 54%, transparent 66%);
+}
+
+.myword-slide.is-center .myword-film-leak {
+  animation: mywordFilmLeak 1.35s ease-out both;
+}
+
+@keyframes mywordFilmLeak {
+  12% { opacity: 0; }
+  32% { opacity: 0.82; }
+  62% { opacity: 0.52; }
+  100% { opacity: 0; transform: translate3d(100%, 0, 0) rotate(14deg); }
+}
+
+/* ── Phase 2: five real gallery depths with a card-to-card orbit ── */
+.myword-float-stage { perspective: 1100px; }
+
+.myword-float-companion.is-left,
+.myword-float-companion.is-right { width: clamp(146px, min(32vw, 26vh), 232px); }
+
+.myword-float-companion.is-left-far,
+.myword-float-companion.is-right-far {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  width: clamp(118px, min(26vw, 20vh), 190px);
+  aspect-ratio: 1 / 1;
+  padding: 7px;
+  border: 1px solid rgba(255, 226, 165, 0.14);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255, 232, 185, 0.12), rgba(38, 23, 16, 0.45));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
+  opacity: 0.2;
+  filter: blur(1.3px) brightness(0.72);
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transition: transform 1.1s cubic-bezier(0.22, 0.78, 0.18, 1), opacity 0.9s ease;
+}
+
+.myword-float-companion.is-left-far { transform: translate3d(calc(-50% - clamp(228px, 37vw, 350px)), 6px, -245px) rotateY(19deg) rotateZ(-4deg) scale(0.78); }
+.myword-float-companion.is-right-far { transform: translate3d(calc(50% + clamp(228px, 37vw, 350px)), -5px, -245px) rotateY(-19deg) rotateZ(4deg) scale(0.78); }
+
+.myword-fcard {
+  transition:
+    transform 1.18s cubic-bezier(0.2, 0.78, 0.18, 1),
+    opacity 0.95s cubic-bezier(0.2, 0.78, 0.18, 1),
+    filter 0.95s ease;
+}
+
+.myword-fcard.is-enter-right,
+.myword-fcard.is-enter-left { transform-origin: center center; }
+
+.myword-fcard.is-enter-right[data-transition-style="orbit"] { transform: translate3d(47%, 13px, -290px) rotateY(-33deg) rotateZ(8deg) scale(0.72); }
+.myword-fcard.is-enter-left[data-transition-style="orbit"] { transform: translate3d(-47%, 13px, -290px) rotateY(33deg) rotateZ(-8deg) scale(0.72); }
+.myword-fcard.is-enter-right[data-transition-style="fan"],
+.myword-fcard.is-enter-left[data-transition-style="fan"] { transform: translate3d(0, 0, -310px) rotateY(-22deg) rotateZ(-8deg) scale(0.64); }
+.myword-fcard.is-enter-right[data-transition-style="depth"] { transform: translate3d(18%, 8px, -480px) rotateY(-8deg) rotateZ(2deg) scale(0.58); }
+.myword-fcard.is-enter-left[data-transition-style="depth"] { transform: translate3d(-18%, 8px, -480px) rotateY(8deg) rotateZ(-2deg) scale(0.58); }
+.myword-fcard.is-enter-right[data-transition-style="glide"] { transform: translate3d(77%, 0, -155px) rotateY(-19deg) rotateZ(5deg) scale(0.83); }
+.myword-fcard.is-enter-left[data-transition-style="glide"] { transform: translate3d(-77%, 0, -155px) rotateY(19deg) rotateZ(-5deg) scale(0.83); }
+
+.myword-fcard.is-exit-left[data-transition-style="orbit"] { transform: translate3d(-64%, -10px, -320px) rotateY(28deg) rotateZ(-9deg) scale(0.66); opacity: 0; filter: brightness(0.67) blur(1.5px); }
+.myword-fcard.is-exit-right[data-transition-style="orbit"] { transform: translate3d(64%, -10px, -320px) rotateY(-28deg) rotateZ(9deg) scale(0.66); opacity: 0; filter: brightness(0.67) blur(1.5px); }
+.myword-fcard.is-exit-left[data-transition-style="fan"] { transform: translate3d(-54%, 0, -300px) rotateY(34deg) rotateZ(-12deg) scale(0.68); opacity: 0; filter: brightness(0.66) blur(2px); }
+.myword-fcard.is-exit-right[data-transition-style="fan"] { transform: translate3d(54%, 0, -300px) rotateY(-34deg) rotateZ(12deg) scale(0.68); opacity: 0; filter: brightness(0.66) blur(2px); }
+.myword-fcard.is-exit-left[data-transition-style="depth"] { transform: translate3d(-18%, 0, -550px) rotateY(4deg) scale(0.48); opacity: 0; filter: brightness(0.62) blur(2px); }
+.myword-fcard.is-exit-right[data-transition-style="depth"] { transform: translate3d(18%, 0, -550px) rotateY(-4deg) scale(0.48); opacity: 0; filter: brightness(0.62) blur(2px); }
+.myword-fcard.is-exit-left[data-transition-style="glide"] { transform: translate3d(-88%, 0, -200px) rotateY(20deg) rotateZ(-4deg) scale(0.8); opacity: 0; filter: brightness(0.68) blur(1px); }
+.myword-fcard.is-exit-right[data-transition-style="glide"] { transform: translate3d(88%, 0, -200px) rotateY(-20deg) rotateZ(4deg) scale(0.8); opacity: 0; filter: brightness(0.68) blur(1px); }
+
+.myword-fcard.is-center[data-transition-style="orbit"] .myword-fcard-float-body { animation-duration: 6.4s; }
+.myword-fcard.is-center[data-transition-style="fan"] .myword-fcard-float-body { animation-duration: 8s; }
+.myword-fcard.is-center[data-transition-style="depth"] .myword-fcard-float-body { animation-duration: 9.2s; }
+.myword-fcard.is-center[data-transition-style="glide"] .myword-fcard-float-body { animation-duration: 7.2s; }
+.myword-fcard.is-center .myword-fcard-photo.is-kenburns[data-camera-move="orbit-left"] { animation: mywordCardOrbitLeft 6.8s ease-out both; }
+.myword-fcard.is-center .myword-fcard-photo.is-kenburns[data-camera-move="orbit-right"] { animation: mywordCardOrbitRight 6.8s ease-out both; }
+.myword-fcard.is-center .myword-fcard-photo.is-kenburns[data-camera-move="push"] { animation: mywordCardPush 6.8s ease-out both; }
+.myword-fcard.is-center .myword-fcard-photo.is-kenburns[data-camera-move="drift"] { animation: mywordCardDrift 6.8s ease-in-out both; }
+
+@keyframes mywordCardOrbitLeft { from { transform: scale(1.09) translate3d(1.6%, 0, 0); } to { transform: scale(1.045) translate3d(-1%, 0, 0); } }
+@keyframes mywordCardOrbitRight { from { transform: scale(1.05) translate3d(-1.5%, 0, 0); } to { transform: scale(1.07) translate3d(1%, 0, 0); } }
+@keyframes mywordCardPush { from { transform: scale(1.01); } to { transform: scale(1.085); } }
+@keyframes mywordCardDrift { from { transform: scale(1.065) translate3d(0.8%, -0.3%, 0); } to { transform: scale(1.045) translate3d(-0.8%, -0.5%, 0); } }
+
+/* ── Phase 3: screen-filling iris, radial, and aperture reveals ── */
+.myword-show-stage { perspective: 1500px; }
+
+.myword-show-slide {
+  transition:
+    opacity 1.35s cubic-bezier(0.2, 0.72, 0.2, 1),
+    transform 1.8s cubic-bezier(0.2, 0.78, 0.18, 1),
+    filter 1.25s ease,
+    clip-path 1.55s cubic-bezier(0.2, 0.78, 0.18, 1);
+}
+
+.myword-show-slide.is-enter-left,
+.myword-show-slide.is-enter-right {
+  transform: translate3d(0, 2%, -120px) scale(0.94);
+  clip-path: circle(3% at 50% 50%);
+  filter: brightness(1.2) blur(4px);
+}
+
+.myword-show-slide.is-center { clip-path: circle(72% at 50% 50%); }
+.myword-show-slide.is-center[data-transition-style="iris"] { clip-path: circle(75% at 50% 48%); }
+.myword-show-slide.is-center[data-transition-style="dissolve"] { clip-path: inset(0 round 13px); }
+.myword-show-slide.is-center[data-transition-style="radial"] { clip-path: circle(75% at 52% 50%); }
+.myword-show-slide.is-center[data-transition-style="sweep"] { clip-path: inset(0 round 10px); }
+
+.myword-show-slide.is-enter-left[data-transition-style="iris"],
+.myword-show-slide.is-enter-right[data-transition-style="iris"] { clip-path: circle(0% at 50% 50%); }
+.myword-show-slide.is-enter-left[data-transition-style="dissolve"],
+.myword-show-slide.is-enter-right[data-transition-style="dissolve"] { transform: translate3d(0, 0, -190px) scale(1.035); clip-path: inset(42% round 18px); filter: brightness(1.08) blur(6px); }
+.myword-show-slide.is-enter-left[data-transition-style="radial"],
+.myword-show-slide.is-enter-right[data-transition-style="radial"] { clip-path: circle(0% at 50% 50%); transform: translate3d(0, 0, -210px) scale(0.97); }
+.myword-show-slide.is-enter-left[data-transition-style="sweep"],
+.myword-show-slide.is-enter-right[data-transition-style="sweep"] { transform: translate3d(0, 0, -160px) scale(0.96); clip-path: inset(0 100% 0 0 round 14px); }
+
+.myword-show-slide.is-center .myword-show-photo.is-camera-pan[data-camera-move="push"] { transform: scale(1.095); }
+.myword-show-slide.is-center .myword-show-photo.is-camera-pan[data-camera-move="pull"] { transform: scale(1.075); }
+.myword-show-slide.is-center .myword-show-photo.is-camera-pan[data-camera-move="drift-left"] { transform: scale(1.07) translate3d(-1.2%, -0.4%, 0); }
+.myword-show-slide.is-center .myword-show-photo.is-camera-pan[data-camera-move="drift-right"] { transform: scale(1.07) translate3d(1.2%, 0.4%, 0); }
+.myword-show-slide.is-center .myword-show-photo.is-camera-pan[data-camera-move="pull"] { animation: mywordLetterPull 7.4s ease-out both; }
+.myword-show-slide.is-center .myword-show-photo.is-camera-pan[data-camera-move="drift-left"] { animation: mywordLetterDriftLeft 7.4s ease-in-out both; }
+.myword-show-slide.is-center .myword-show-photo.is-camera-pan[data-camera-move="drift-right"] { animation: mywordLetterDriftRight 7.4s ease-in-out both; }
+
+@keyframes mywordLetterPull { from { transform: scale(1.1); } to { transform: scale(1.025); } }
+@keyframes mywordLetterDriftLeft { from { transform: scale(1.08) translate3d(1.2%, 0, 0); } to { transform: scale(1.035) translate3d(-1.2%, -0.4%, 0); } }
+@keyframes mywordLetterDriftRight { from { transform: scale(1.035) translate3d(-1%, 0, 0); } to { transform: scale(1.075) translate3d(1.2%, 0.4%, 0); } }
+
+.myword-caption-text {
+  transform: translate3d(0, 12px, 0);
+  transition: opacity 0.76s ease, transform 0.76s cubic-bezier(0.2, 0.78, 0.18, 1);
+}
+
+.myword-final-photo {
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  opacity: 0;
+  filter: blur(2px) brightness(0.32) saturate(0.72);
+  transform: scale(1.08);
+  transition: opacity 2s ease, transform 3.2s cubic-bezier(0.2, 0.78, 0.18, 1);
+  pointer-events: none;
+}
+
+.myword-final.is-revealed .myword-final-photo { opacity: 0.42; transform: scale(1); }
+.myword-final.is-revealed { animation: mywordFinalFadeIn 1.5s var(--mw-ease-cinema) forwards; }
+.myword-closing-reel .myword-stage { transition: opacity 1.55s ease, transform 1.8s cubic-bezier(0.2, 0.78, 0.18, 1), filter 1.6s ease; }
+.myword-closing-reel .myword-stage { opacity: 0.2; transform: scale(0.9); filter: blur(3px); }
+
+@media (max-width: 600px) {
+  .myword-float-companion.is-left-far,
+  .myword-float-companion.is-right-far { display: block; width: clamp(86px, 22vw, 126px); opacity: 0.17; }
+  .myword-float-companion.is-left-far { display: block; width: clamp(86px, 22vw, 126px); opacity: 0.17; }
+  .myword-float-companion.is-left-far { transform: translate3d(calc(-50% - 37vw), 0, -240px) rotateY(16deg) scale(0.78); }
+  .myword-float-companion.is-right-far { transform: translate3d(calc(50% + 37vw), 0, -240px) rotateY(-16deg) scale(0.78); }
+  .myword-float-companion.is-left,
+  .myword-float-companion.is-right { display: block; width: clamp(105px, 30vw, 160px); opacity: 0.32; }
+  .myword-float-companion.is-left { display: block; width: clamp(105px, 30vw, 160px); opacity: 0.32; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .myword-film-leak,
+  .myword-final-photo { animation: none !important; transition-duration: 0.01ms !important; }
+  .myword-show-slide,
+  .myword-slide,
+  .myword-fcard,
+  .myword-float-companion { transition-duration: 0.01ms !important; }
+}
+
+/* ── FINAL SCENE: Love Letter (After Photo 108) ─────────── */
+.myword-final {
+  position: fixed;
+  inset: 0;
+  z-index: 32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(56, 33, 18, 0.92) 0%, rgba(13, 8, 6, 0.98) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow-y: auto;
+  animation: mywordFinalFadeIn 1.3s var(--mw-ease-cinema) forwards;
+}
+
+@keyframes mywordFinalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.myword-final-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 35%, rgba(245, 199, 107, 0.16), transparent 65%);
+  animation: mywordGlowPulse 8s ease-in-out infinite;
+}
+
+.myword-final-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 640px;
+  padding: 32px 28px;
+  border-radius: 24px;
+  background: linear-gradient(165deg, rgba(42, 26, 17, 0.82) 0%, rgba(22, 13, 9, 0.9) 100%);
+  border: 1px solid rgba(245, 199, 107, 0.38);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.72),
+    0 0 56px rgba(245, 199, 107, 0.18),
+    inset 0 1px 1px rgba(255, 245, 220, 0.34);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: mywordFinalCardRise 1.25s var(--mw-ease-cinema) forwards;
+}
+
+@keyframes mywordFinalCardRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.myword-final-kicker {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.48rem;
+  letter-spacing: 2.2px;
+  color: rgba(245, 199, 107, 0.88);
+}
+
+.myword-final-headline {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.25rem, 3.6vw, 1.78rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.38;
+  color: var(--mw-cream);
+  text-shadow:
+    0 2px 16px rgba(245, 199, 107, 0.32),
+    0 4px 24px rgba(0, 0, 0, 0.65);
+}
+
+.myword-final-letter {
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: rgba(18, 10, 7, 0.45);
+  border: 1px solid rgba(245, 199, 107, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.myword-final-para {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.08rem, 2.8vw, 1.3rem);
+  line-height: 1.56;
+  color: var(--mw-cream);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+}
+
+.myword-final-signoff {
+  margin-top: 2px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--mw-amber);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 600px) {
+  .myword-float-companion {
+    display: none;
+  }
+
+  .myword-fcard-outer,
+  .myword-show-outer {
+    width: min(74vw, 39vh, 300px);
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .myword-fcard-inner,
+  .myword-show-inner {
+    padding: 4px;
+    border-radius: 11px;
+  }
+
+  .myword-final-card {
+    padding: 24px 18px;
+    gap: 13px;
+  }
+
+  .myword-final-letter {
+    padding: 14px 14px;
+  }
+
+  .myword-final-para {
+    font-size: 1.04rem;
+    line-height: 1.48;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .myword-float-companion,
+  .myword-fcard.is-center .myword-fcard-float-body,
+  .myword-fcard-outer::after,
+  .myword-show-halo,
+  .myword-final-glow {
+    animation: none !important;
+  }
+
+  .myword-fcard,
+  .myword-fcard-photo,
+  .myword-show-slide,
+  .myword-show-photo,
+  .myword-interlude,
+  .myword-final,
+  .myword-final-card {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

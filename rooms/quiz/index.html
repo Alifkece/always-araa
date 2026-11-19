@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Caveat:wght@400;700&family=Press+Start+2P&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../_shared/room.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="quiz" data-fallback="../../assets/bg_ghibli.webp">
+  <main class="quiz">
+    <div class="hud">
+      <div><small data-t="quiz.score_label">SKOR</small><b id="score">000</b></div>
+      <div class="dots" id="dots"></div>
+      <div class="right"><small data-t="quiz.counter_label">SOAL</small><b id="counter">1/1</b></div>
+    </div>
+    <div id="stage"></div>
+  </main>
+
+  <script src="../../config.js"></script>
+  <script src="../_shared/room.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

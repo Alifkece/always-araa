@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Journey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Caveat:wght@400;700&family=Press+Start+2P&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../_shared/room.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="journey" data-fallback="../../assets/bg_ghibli.webp">
+  <main class="card">
+    <h1 data-t="journey.title">Our Journey</h1>
+    <div class="divider"><i></i><span>&#10022;</span><i></i></div>
+    <div class="counters">
+      <div><b id="y">0</b><span data-t="journey.years">Years</span></div>
+      <div><b id="m">0</b><span data-t="journey.months">Months</span></div>
+      <div><b id="d">0</b><span data-t="journey.days">Days</span></div>
+    </div>
+    <div class="clock"><span id="hh">00</span><em>:</em><span id="mm">00</span><em>:</em><span id="ss">00</span></div>
+    <p class="caption" data-t="journey.caption">of shared memories</p>
+    <p class="empty-note" id="empty" style="display:none" data-t="journey.empty"></p>
+  </main>
+
+  <script src="../../config.js"></script>
+  <script src="../_shared/room.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

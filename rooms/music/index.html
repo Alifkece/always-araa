@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Caveat:wght@400;700&family=Press+Start+2P&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../_shared/room.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="music" data-fallback="../../assets/bg_ghibli.webp">
+  <main class="stage">
+    <section class="player" id="player">
+      <span class="counter" id="counter">01 / 01</span>
+
+      <div class="cover-wrap">
+        <img id="cover" class="cover" alt="">
+        <span class="badge" id="badge" style="display:none">&#9834; <span data-t="music.now_playing">NOW PLAYING</span></span>
+      </div>
+
+      <div class="song-title" id="song-title">-</div>
+      <div class="song-artist" id="song-artist"></div>
+
+      <div class="progress">
+        <div class="times"><span id="t-now">0:00</span><span id="t-total">0:00</span></div>
+        <div class="bar" id="bar"><i id="bar-fill"></i><b id="bar-knob"></b></div>
+      </div>
+
+      <div class="controls">
+        <button class="ctl small" id="btn-shuffle" aria-label="Acak"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg></button>
+        <button class="ctl boxed" id="btn-prev" aria-label="Sebelumnya"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" x2="5" y1="19" y2="5"/></svg></button>
+        <button class="ctl play" id="btn-play" aria-label="Putar">
+          <span id="ic-play"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
+          <span id="ic-pause" style="display:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></span>
+        </button>
+        <button class="ctl boxed" id="btn-next" aria-label="Berikutnya"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" x2="19" y1="5" y2="19"/></svg></button>
+        <button class="ctl small" id="btn-repeat" aria-label="Ulangi"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></button>
+      </div>
+    </section>
+    <p class="empty-note" id="empty" style="display:none" data-t="music.empty"></p>
+  </main>
+  <audio id="audio" preload="metadata"></audio>
+
+  <script src="../../config.js"></script>
+  <script src="../_shared/room.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

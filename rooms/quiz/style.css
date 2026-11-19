@@ -1,0 +1,55 @@
+/* Quiz: perpustakaan gelap, bingkai emas (background asli: assets/rooms/bg-quiz) */
+body {
+  min-height: 100vh; display: grid; place-items: center; color: #f4e3c1; font-family: 'Press Start 2P', monospace;
+  background:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.35) 0 6px, transparent 6px 70px),
+    radial-gradient(ellipse at 50% 0%, #3a2a4a 0, transparent 45%),
+    linear-gradient(180deg, #1d1109, #2a190c 60%, #140a05);
+}
+.quiz { width: min(610px, 94vw); padding: 12px 0; }
+.hud { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; margin-bottom: 10px; background: rgba(10, 6, 3, .88); border: 2px solid #c98b2b; box-shadow: inset 0 0 0 2px #0a0603, inset 0 0 0 3px #6e4a18; }
+.hud small { display: block; font-size: .36rem; color: #c98b2b; margin-bottom: 3px; }
+.hud b { font-size: .85rem; color: #f0c05a; letter-spacing: 1px; }
+.hud .right { text-align: right; }
+.dots { display: flex; gap: 8px; }
+.dots i { width: 10px; height: 10px; border: 2px solid #c98b2b; }
+.dots i.cur { background: #d9a73a; box-shadow: 0 0 6px #d9a73a; }
+.dots i.ok { background: #4fd36a; border-color: #4fd36a; box-shadow: 0 0 6px #4fd36a; }
+.dots i.no { background: #e0504a; border-color: #e0504a; box-shadow: 0 0 6px #e0504a; }
+
+.qbox { padding: 6px; margin-bottom: 10px; border: 3px solid #d79a34; background: rgba(10, 6, 3, .9); }
+.qinner { position: relative; padding: 14px 22px 22px; border: 1px solid #7a5420; background: rgba(0, 0, 0, .35); transition: background .3s, border-color .3s; }
+.qinner.right { background: rgba(20, 80, 35, .5); border-color: #3f9a4f; }
+.qinner.wrong { background: rgba(90, 22, 16, .5); border-color: #b03a2a; }
+.qinner::before, .qinner::after { content: ''; position: absolute; width: 8px; height: 8px; border: 2px solid #c98b2b; }
+.qinner::before { left: 5px; top: 5px; border-right: 0; border-bottom: 0; }
+.qinner::after { right: 5px; bottom: 5px; border-left: 0; border-top: 0; }
+.qlabel { font-size: .42rem; color: #c98b2b; padding-bottom: 8px; border-bottom: 1px solid #5c3d14; margin-bottom: 14px; }
+.qtext { font-size: .78rem; line-height: 1.7; }
+
+.qbox.good { background: rgba(24, 90, 40, .55); }
+.qbox.bad { background: rgba(110, 24, 24, .55); }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.opt { min-height: 66px; padding: 10px 12px; text-align: left; cursor: pointer; font-size: .58rem; line-height: 1.6; color: #f4e3c1; background: rgba(62, 36, 12, .92); border: 2px solid #b97a28; transition: border-color .15s, background .15s; }
+.opt b { color: #f0c05a; margin-right: 8px; }
+.opt:hover:not(:disabled) { border-color: #ffd36a; background: rgba(90, 56, 18, .95); }
+.opt:disabled { cursor: default; }
+.opt.correct { color: #7dffa0; background: rgba(14, 60, 26, .92); border-color: #3ddc6a; box-shadow: inset 0 0 0 2px rgba(10, 30, 14, .9), inset 0 0 0 3px #3ddc6a; }
+.opt.correct b { color: #7dffa0; }
+.opt.wrong { color: #ff8a8a; background: rgba(70, 14, 14, .92); border-color: #ff4d4d; }
+.opt.wrong b { color: #ff8a8a; }
+.dots i.good { background: #3ddc6a; border-color: #3ddc6a; box-shadow: 0 0 6px #3ddc6a; }
+.dots i.bad { background: #ff4d4d; border-color: #ff4d4d; box-shadow: 0 0 6px #ff4d4d; }
+
+.nextwrap { text-align: center; margin-top: 12px; min-height: 40px; }
+.gold { padding: 11px 34px; cursor: pointer; font-family: inherit; font-size: .58rem; color: #2b1a06; background: #f7c85a; border: 2px solid #ffe29a; box-shadow: 0 4px 0 #b8861e; }
+.gold:active { transform: translateY(3px); box-shadow: 0 1px 0 #b8861e; }
+.gold.wide { width: 100%; }
+
+.result { padding: 24px 26px 22px; text-align: center; background: rgba(10, 6, 3, .94); border: 3px solid #d79a34; box-shadow: inset 0 0 0 4px #0a0603, inset 0 0 0 5px #8a5a1c; width: min(440px, 100%); margin: 0 auto; animation: fadein .5s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } }
+.rtitle { font-size: 1.1rem; margin-bottom: 16px; text-shadow: 0 0 12px currentColor; }
+.scorebox { display: inline-block; padding: 10px 26px 12px; margin-bottom: 14px; border: 2px solid #8a5a1c; background: rgba(0, 0, 0, .5); }
+.scorebox small { display: block; font-size: .36rem; color: #c98b2b; }
+.scorebox b { display: block; margin: 6px 0; font-size: 2.6rem; color: #f7c85a; text-shadow: 0 3px 0 #7a4a10, 0 0 16px rgba(247, 200, 90, .5); }
+.rank { display: table; margin: 0 auto 16px; padding: 8px 18px; font-size: .55rem; color: #2b1a06; background: #f7c85a; border: 2px solid #ffe29a; }

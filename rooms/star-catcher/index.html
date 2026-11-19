@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Caveat:wght@400;700&family=Press+Start+2P&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../_shared/room.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="catcher" data-fallback="../../assets/bg_ghibli.webp">
+  <main id="scene">
+    <svg id="lines"></svg>
+    <div class="pill"><span>&#10024;</span> <b id="count">0 / 10</b></div>
+    <p class="hint" id="hint" data-t="catcher.hint">Catch the falling stars...</p>
+    <p class="final" id="final" data-t="catcher.message">You are my brightest star.</p>
+    <button class="btn" id="again" style="display:none" data-t="catcher.again">MAIN LAGI</button>
+  </main>
+
+  <script src="../../config.js"></script>
+  <script src="../_shared/room.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
