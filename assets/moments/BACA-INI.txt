@@ -1,0 +1,3 @@
+FOTO MOMENTS (halaman Moments)
+Timpa file photo1.jpg ... photo5.jpg dengan fotomu (nama dan format .jpg harus sama).
+Foto tambahan: simpan sebagai photo6.jpg, lalu tambah satu blok di config.js -> "photos".

@@ -1,0 +1,1 @@
+Opsional. Cover asli tetap dari URL di config.js. Mau ganti? Drag file bernama cover1, cover2.

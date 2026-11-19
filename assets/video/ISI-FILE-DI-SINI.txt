@@ -1,0 +1,1 @@
+Taruh video (mp4/webm) lalu daftarkan di config.js: {"video":"assets/video/clip1","caption":"..."}

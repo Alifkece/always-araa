@@ -1,0 +1,3 @@
+Background tiap ruangan (sudah terisi dari tampilan website asli, resolusi sekitar 1330x682).
+Mau ganti dengan gambar yang lebih tajam? Drag gambar dengan nama persis ini (ekstensi jpg/png/webp, akan menggantikan yang ada):
+  bg-moments, bg-music, bg-journey, bg-quiz, bg-atlas, bg-catcher, bg-fortune, bg-things, bg-bucket, bg-message

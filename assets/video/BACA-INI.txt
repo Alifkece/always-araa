@@ -1,0 +1,2 @@
+VIDEO (opsional)
+Taruh video .mp4 di sini, lalu daftarkan di config.js -> "photos": {"video": "assets/video/clip1.mp4", "caption": "..."}

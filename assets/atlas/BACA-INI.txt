@@ -1,0 +1,2 @@
+FOTO ATLAS (foto di tiap lokasi peta)
+Taruh place1.jpg, place2.jpg, place3.jpg di folder ini. Sebelum ada file-nya, dipakai foto asli dari URL di config.js.

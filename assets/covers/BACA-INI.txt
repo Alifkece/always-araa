@@ -1,0 +1,2 @@
+COVER LAGU (gambar bulat di pemutar musik)
+Taruh cover1.jpg (untuk lagu 1) dan cover2.jpg (lagu 2). Sebelum ada file-nya, dipakai cover asli dari URL di config.js.

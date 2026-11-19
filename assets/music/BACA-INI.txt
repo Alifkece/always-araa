@@ -1,0 +1,3 @@
+LAGU
+Taruh song1.mp3 dan song2.mp3 di folder ini. Sebelum ada file-nya, dipakai lagu asli dari URL di config.js.
+Judul dan artis diganti di config.js -> "playlist".

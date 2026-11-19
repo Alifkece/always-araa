@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" shape-rendering="crispEdges">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0d0f0"/><stop offset="1" stop-color="#c9a0e0"/></linearGradient></defs>
+<rect width="400" height="400" fill="url(#g)"/>
+<rect x="296" y="56" width="48" height="48" fill="#fff6d0"/><rect x="288" y="64" width="64" height="32" fill="#fff6d0"/>
+<rect x="0" y="270" width="400" height="130" fill="#6a3a8a" opacity=".55"/><rect x="0" y="310" width="400" height="90" fill="#6a3a8a" opacity=".75"/>
+<g fill="#fff"><rect x="60" y="80" width="64" height="16"/><rect x="76" y="64" width="40" height="16"/><rect x="200" y="130" width="72" height="16"/><rect x="216" y="114" width="40" height="16"/></g>
+<g fill="#e0504a"><rect x="168" y="168" width="24" height="24"/><rect x="208" y="168" width="24" height="24"/><rect x="152" y="184" width="96" height="24"/><rect x="160" y="208" width="80" height="24"/><rect x="176" y="232" width="48" height="16"/><rect x="192" y="248" width="16" height="12"/></g>
+<text x="200" y="350" text-anchor="middle" font-family="monospace" font-size="15" fill="#fff" shape-rendering="auto">FOTO 4</text>
+<text x="200" y="372" text-anchor="middle" font-family="monospace" font-size="11" fill="#fff" opacity=".85" shape-rendering="auto">ganti: assets/photos/photo4.jpg</text>
+</svg>

@@ -1,0 +1,3 @@
+photo1.svg ... photo5.svg = gambar SEMENTARA untuk Moments.
+Ganti dengan fotomu: drag file bernama photo1, photo2, ... photo5 (jpg/png/webp). Fotomu otomatis menggantikan gambar sementara.
+Foto pin Atlas: place1 ... place3 (opsional, kalau kosong dipakai foto asli dari config.js).
